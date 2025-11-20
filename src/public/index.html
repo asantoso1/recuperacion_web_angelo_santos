@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipo de Cambio - Banguat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .card-precio { border-left: 5px solid #0d6efd; }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">🏦 Consulta Tipo de Cambio (GTQ/USD)</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow card-precio">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-muted">Tipo de Cambio Actual</h5>
+                        <h1 class="display-4 fw-bold text-primary" id="precio-actual">Cargando...</h1>
+                        <p class="card-text">Fecha: <span id="fecha-actual">--/--/----</span></p>
+                        <button onclick="consultarAPI()" class="btn btn-primary btn-lg mt-2">
+                            🔄 Consultar Banguat
+                        </button>
+                        <p id="mensaje-origen" class="text-muted small mt-2"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <h3 class="mb-3">📜 Historial de Consultas</h3>
+                <div class="table-responsive shadow-sm bg-white rounded">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha Consulta</th>
+                                <th>Fecha Cambio</th>
+                                <th>Valor (Q)</th>
+                                <th>Origen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-historial">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Esta función se ejecuta al cargar la página y al dar click al botón
+        async function consultarAPI() {
+            const btn = document.querySelector('button');
+            const precioDisplay = document.getElementById('precio-actual');
+            
+            try {
+                // 1. Efecto visual de carga
+                btn.disabled = true;
+                btn.innerHTML = '⏳ Consultando...';
+                precioDisplay.style.opacity = '0.5';
+
+                // 2. Llamar a TU backend (la ruta que probaste antes)
+                const respuesta = await fetch('/api/consultar-cambio');
+                const datos = await respuesta.json();
+
+                if (datos.error) throw new Error(datos.error);
+
+                // 3. Actualizar la tarjeta principal
+                document.getElementById('precio-actual').textContent = `Q ${datos.actual.valor}`;
+                document.getElementById('fecha-actual').textContent = datos.actual.fecha;
+                document.getElementById('mensaje-origen').textContent = `Fuente: ${datos.actual.origen}`;
+
+                // 4. Actualizar la tabla de historial
+                const tablaBody = document.getElementById('tabla-historial');
+                tablaBody.innerHTML = ''; // Limpiar tabla actual
+
+                datos.historial.forEach(fila => {
+                    const fechaBonita = new Date(fila.fecha_consulta).toLocaleString();
+                    const fechaCambioBonita = new Date(fila.fecha_tipo_cambio).toLocaleDateString();
+                    
+                    const htmlFila = `
+                        <tr>
+                            <td>${fila.id}</td>
+                            <td>${fechaBonita}</td>
+                            <td>${fechaCambioBonita}</td>
+                            <td class="fw-bold text-success">${fila.tipo_cambio}</td>
+                            <td>${fila.origen_api}</td>
+                        </tr>
+                    `;
+                    tablaBody.innerHTML += htmlFila;
+                });
+
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                // Restaurar botones
+                btn.disabled = false;
+                btn.innerHTML = '🔄 Consultar Banguat';
+                precioDisplay.style.opacity = '1';
+            }
+        }
+
+        // Ejecutar consulta inicial al abrir la página
+        consultarAPI();
+    </script>
+</body>
+</html>
