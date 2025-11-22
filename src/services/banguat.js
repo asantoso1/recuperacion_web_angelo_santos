@@ -1,4 +1,7 @@
 // src/services/banguat.js
+
+//Se construyó el XML necesario para el protocolo SOAP y se utilizó la 
+// librería axios para hacer la petición POST al servidor del banco, y xml2js para convertir la respuesta a JSON"
 const axios = require('axios');
 const xml2js = require('xml2js');
 
@@ -7,7 +10,7 @@ const URL_BANGUAT = 'https://www.banguat.gob.gt/variables/ws/tipocambio.asmx';
 
 const obtenerTipoCambioDia = async () => {
     // 1. Construir el "Sobre" (Envelope) SOAP.
-    // Es como una carta formal que exige el banco para responder.
+    
     const xmlBody = `<?xml version="1.0" encoding="utf-8"?>
     <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
       <soap:Body>
@@ -29,7 +32,7 @@ const obtenerTipoCambioDia = async () => {
         const result = await parser.parseStringPromise(response.data);
 
         // 4. Navegar por la respuesta para encontrar el dato exacto
-        // La estructura suele ser: SoapEnvelope -> Body -> Response -> Result -> Vars -> Var -> (fecha, venta, compra)
+        
         const datos = result['soap:Envelope']['soap:Body']['TipoCambioDiaResponse']['TipoCambioDiaResult']['CambioDolar']['VarDolar'];
 
         // Si hay muchos datos, devuelve un array. Si es solo hoy, devuelve un objeto.

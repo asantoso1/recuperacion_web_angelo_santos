@@ -1,4 +1,6 @@
 // src/controllers/cambioController.js
+//El controlador recibe esa información, formatea la fecha para que sea compatible con SQL y ejecuta el INSERT hacia la base de datos"
+
 const banguatService = require('../services/banguat');
 const pool = require('../database/db');
 

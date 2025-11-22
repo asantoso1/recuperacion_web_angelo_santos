@@ -30,7 +30,7 @@ CREATE TABLE `historial_consultas` (
   `tipo_cambio` decimal(10,5) NOT NULL,
   `origen_api` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +53,11 @@ INSERT INTO `historial_consultas` VALUES
 (10,'2025-11-19 22:17:15','2025-11-19',7.65449,'Banco de Guatemala (SOAP)'),
 (11,'2025-11-19 22:17:17','2025-11-19',7.65449,'Banco de Guatemala (SOAP)'),
 (12,'2025-11-19 22:22:05','2025-11-19',7.65449,'Banco de Guatemala (SOAP)'),
-(13,'2025-11-19 22:57:05','2025-11-19',7.65449,'Banco de Guatemala (SOAP)');
+(13,'2025-11-19 22:57:05','2025-11-19',7.65449,'Banco de Guatemala (SOAP)'),
+(14,'2025-11-21 20:39:06','2025-11-21',7.65581,'Banco de Guatemala (SOAP)'),
+(15,'2025-11-21 20:43:49','2025-11-21',7.65581,'Banco de Guatemala (SOAP)'),
+(16,'2025-11-21 23:26:09','2025-11-21',7.65581,'Banco de Guatemala (SOAP)'),
+(17,'2025-11-21 23:30:46','2025-11-21',7.65581,'Banco de Guatemala (SOAP)');
 /*!40000 ALTER TABLE `historial_consultas` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
@@ -67,4 +71,4 @@ commit;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-11-19 23:22:25
+-- Dump completed on 2025-11-21 23:41:37

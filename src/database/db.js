@@ -1,5 +1,5 @@
 // src/database/db.js
-const mysql = require('mysql2/promise'); // Usamos promesas para código más limpio moderno
+const mysql = require('mysql2/promise');
 require('dotenv').config(); // Carga las variables del archivo .env
 
 // Configuración del pool de conexiones
