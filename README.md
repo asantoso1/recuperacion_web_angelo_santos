@@ -1,5 +1,4 @@
 # Examen de Recuperación - Desarrollo Web
-# ANGELO PAOLO SANTOS OLIVA
 ## Consumo de API SOAP Banguat + Historial en MariaDB
 
 Este proyecto es una aplicación Full Stack que consume el Web Service SOAP del Banco de Guatemala para obtener el tipo de cambio del día (GTQ a USD) y almacena un historial de consultas en una base de datos MariaDB.
